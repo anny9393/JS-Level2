@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Project JS 2</title>
+</head>
+<body>
+    <div id="app">
+    <div class='header'>
+        <div class="cart">
+            <form action="#" class="search-form">
+                <input type="text" class="search-input" v-model='searchLine' placeholder="Search for item...">
+                <button class="btn-search" @click="filterGoods">
+                    <i class="fas fa-search" ></i>
+                </button>
+            </form>
+        <button  class="button-shoppingcart" type="button" @click='isVisibleCart=!isVisibleCart'>Shopping Cart</button>
+        <div class="cart-block overflow" v-if ='isVisibleCart'>
+           {{cartIsEmpty}}
+            <div class="cart-wrap" >
+                <div class="cart-item" v-for="item of goods" :key="item.id_product">
+                <div class="cart-item cart-column">
+                 <img :src="imgCatalog">
+                <div class="product-desc">
+                 <p class="product-title">{{item.product_name}}</p>
+                <p class="product-quantity">Quantity: {{item.quantity}}</p>
+                <p class="product-single-price">${{item.price}} each</p>
+                </div>
+                </div>
+                <div class="right-block">
+                <p class="product-total-price">${{item.quantity*item.price}}</p>
+                <button class="del-btn" data-id="${item.id_product}" @click="removeItemfromCart(item)">&times;</button>
+                </div>
+                </div>
+                <div class="totalCart" v-if="showTotalinCart">Total in Cart: ${{totalCart}}</div>
+            </div>
+        </div>
+    </div></div>
+    <main>
+        <div class="products">
+           <div v-if ='empty'> Item Not Found! </div> 
+            <div class="product-item" v-for="product of products" :key="product.id_product">
+                <img :src="imgCatalog" alt="Some img">
+                <div class="desc">
+                    <h3 data-id style="display: none">{{product.id_product}}</h3>
+                    <h3 data-name class="product-name">{{product.product_name}}</h3>
+                    <h3 data-quantity style="display: none">{{product.quantity}}</h3>
+                    <p data-price >{{product.price}}$</p>
+                    <button class="buy-btn" @click="addProductToCart(product)">Купить</button>
+                </div>
+            </div>
+        </div>
+        <section class="contacts">
+            <span class="contacts-header">Contacts</span>
+            <div class="contact-form">
+                <form action="#" onsubmit="checkForm()">
+                <input class="input-text name" type="text" placeholder="Your name:" required><br>
+                <h6 class="error-message-name"></h6>
+                <input class="input-text phone" type="phone" placeholder="Your mobile phone number: +7" required><br>
+                <h6 class="error-message-phone"></h6>
+                <input class="input-text email" type="email" placeholder="Your email:" required><br>
+                <h6 class="error-message-email"></h6>
+                <textarea name="Your message:" id="" cols="30" rows="10" class="text-area">Your message:</textarea><br>
+                <input type="submit" class="button contact-btn" value="Submit">
+                </form></div>
+        </section>
+    </main>
+</div>
+    <script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js" integrity="sha384-0pzryjIRos8mFBWMzSSZApWtPl/5++eIfzYmTgBBmXYdhvxPc+XcFEk+zJwDgWbP" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="js.js"></script>
+    <script src="contacts.js"></script>
+
+</body>
+</html>
